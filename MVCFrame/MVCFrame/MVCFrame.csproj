@@ -117,6 +117,7 @@
     <Compile Include="MVC\Model\MFEntity.cs" />
     <Compile Include="MVC\Model\MFMainGameScene.cs" />
     <Compile Include="MVC\Model\MFScene.cs" />
+    <Compile Include="MVC\View\MFBackgroundLayer.cs" />
     <Compile Include="MVC\View\MFGUILayer.cs" />
     <Compile Include="MVC\View\MFLayer.cs" />
     <Compile Include="MVC\View\MFMainGameLayer.cs" />

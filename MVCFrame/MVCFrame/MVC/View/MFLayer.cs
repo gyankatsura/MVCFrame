@@ -17,6 +17,7 @@ namespace MVCFrame.MVC.View
             //Test
             new MFMainGameLayer(0).Show();
             new MFGUILayer(1);
+            new MFBackgroundLayer(-1).Show();
         }
         public static void OnLayerUpdate()
         {

@@ -40,9 +40,9 @@ namespace MVCFrame.MVC.Control
         protected override void OnInit()
         {
             base.OnInit();
-            MFMainGameScene.getInst.OnEventEntitySpawned += this.OnEntitySpawned;
-            MFMainGameScene.getInst.OnEventEntityDestroyed += this.OnEntityDestroyed;
-            MFMainGameScene.getInst.OnEventGameState += this.OnGameState;
+            MFScene.GetScene<MFMainGameScene>().OnEventEntitySpawned += this.OnEntitySpawned;
+            MFScene.GetScene<MFMainGameScene>().OnEventEntityDestroyed += this.OnEntityDestroyed;
+            MFScene.GetScene<MFMainGameScene>().OnEventGameState += this.OnGameState;
         }
 
         private void OnEntitySpawned(object sender, EntityArgs args)

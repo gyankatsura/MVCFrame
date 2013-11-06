@@ -12,6 +12,7 @@ namespace MVCFrame.MVC.Model
 
     class MFScene
     {
+        //Entity Events
         public delegate void EntityEventHandler(object sender, EntityArgs args);
         public event EntityEventHandler OnEventEntitySpawned = delegate { };
 
@@ -26,7 +27,7 @@ namespace MVCFrame.MVC.Model
             OnEntitySpawned(entity);
         }
 
-        protected void OnEntitySpawned(MFEntity entity)
+        protected virtual void OnEntitySpawned(MFEntity entity)
         {
 
         }
@@ -39,9 +40,29 @@ namespace MVCFrame.MVC.Model
             OnEntityDestroyed(entity);
         }
 
-        protected void OnEntityDestroyed(MFEntity entity)
+        protected virtual void OnEntityDestroyed(MFEntity entity)
         {
 
+        }
+
+        //Scene Management
+        private static List<MFScene> sSceneList = new List<MFScene>();
+        protected MFScene() { }
+
+        public static T GetScene<T>() where T : MFScene
+        {
+            foreach (MFScene s in sSceneList)
+                if (s is T) return s as T;
+            return null;
+        }
+
+        public static bool CreateScene<T>() where T : MFScene, new()
+        {
+            foreach (MFScene s in sSceneList)
+                if (s is T) return false;
+            T scene = new T();
+            sSceneList.Add(scene);
+            return true;
         }
 
         public void Init()

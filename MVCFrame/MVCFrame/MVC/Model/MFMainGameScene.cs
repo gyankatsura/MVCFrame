@@ -19,7 +19,7 @@ namespace MVCFrame.MVC.Model
 
     class MFMainGameScene : MFScene
     {
-        private static MFMainGameScene inst = null;
+        /*private static MFMainGameScene inst = null;
         public static MFMainGameScene getInst
         {
             get
@@ -27,7 +27,8 @@ namespace MVCFrame.MVC.Model
                 if (inst == null) inst = new MFMainGameScene();
                 return inst;
             }
-        }
+        }*/
+        public MFMainGameScene() { }
 
         public delegate void GameStateEventHandler(object sender, GameStateEventArgs args);
         public event GameStateEventHandler OnEventGameState = delegate { };
@@ -37,10 +38,12 @@ namespace MVCFrame.MVC.Model
         Random rd = new Random();
         List<MFBullet> listBullet = new List<MFBullet>();
         MainGameState state = MainGameState.Running;
+        public int playerHP;
 
         protected override void OnInit()
         {
             base.OnInit();
+            playerHP = 100;
         }
 
         protected override void OnUpdate()
@@ -119,23 +122,25 @@ namespace MVCFrame.MVC.Model
 
         private void CheckHit()
         {
-            bool hit = false;
             MFRectangle rect = player.rectangle;
             foreach (MFBullet b in listBullet)
             {
                 MFRectangle rect1 = b.rectangle;
-                float f1 = (rect.left - (rect1.left + rect1.width));
+                float f1 = (rect.left - (rect1.left + rect1.width));//Simple Collision Detection
                 float f2 = (rect1.left - (rect.left + rect.width));
                 float f3 = (rect.top - (rect1.top + rect1.height));
                 float f4 = (rect1.top - (rect.top + rect.height));
                 if (f1 * f2 > 0.0f && f3 * f4 > 0.0f)
                 {
-                    hit = true;
+                    listBullet.Remove(b);
+                    b.Destroy();
+                    playerHP -= 10;
                     break;
                 }
             }
-            if (hit)
+            if (playerHP <= 0)
             {
+                playerHP = 0;
                 GameOver();
             }
         }
@@ -147,6 +152,7 @@ namespace MVCFrame.MVC.Model
                 b.Destroy();
             }
             listBullet.Clear();
+            player.Destroy();
             state = MainGameState.GameOver;
             GameStateEventArgs args = new GameStateEventArgs();
             args.state = state;
@@ -155,7 +161,9 @@ namespace MVCFrame.MVC.Model
 
         private void Restart()
         {
+            playerHP = 100;
             player.position = new MFVector(0.0f, 0.0f);
+            player.Spawn();
             state = MainGameState.Running;
             GameStateEventArgs args = new GameStateEventArgs();
             args.state = state;

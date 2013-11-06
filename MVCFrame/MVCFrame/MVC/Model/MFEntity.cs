@@ -77,7 +77,6 @@ namespace MVCFrame.MVC.Model
             if (!life) return;
             life = false;
             scene.EntityDestroyed(this);
-            scene = null;
             OnDestroy();
         }
 

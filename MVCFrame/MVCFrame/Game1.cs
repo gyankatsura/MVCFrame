@@ -53,7 +53,8 @@ namespace MVCFrame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Env.OnInit(Content, spriteBatch, graphics);
-            MFMainGameScene.getInst.Init();
+            MFScene.CreateScene<MFMainGameScene>();
+            MFScene.GetScene<MFMainGameScene>().Init();
             MFLayer.OnInit();
             MFMainGameControl.getInst.Init();
             
@@ -79,7 +80,7 @@ namespace MVCFrame
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) this.Exit();
             Env.OnPreUpdate(gameTime);
 
-            MFMainGameScene.getInst.Update();
+            MFScene.GetScene<MFMainGameScene>().Update();
             MFMainGameControl.getInst.Update();
             MFLayer.OnLayerUpdate();
 

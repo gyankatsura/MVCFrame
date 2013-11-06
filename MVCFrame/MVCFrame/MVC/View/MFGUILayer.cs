@@ -17,6 +17,13 @@ namespace MVCFrame.MVC.View
         {
             base.OnDraw();
             SpriteFont font = Env.content.Load<SpriteFont>("SpriteFont1");
+            Texture2D t2d = Env.content.Load<Texture2D>("white");
+            if (t2d != null)
+            {
+                Env.spriteBatch.Begin();
+                Env.spriteBatch.Draw(t2d, new Rectangle(0, 0, Env.screenWidth, Env.screenHeight), new Color(0.0f, 0.0f, 0.0f, 0.4f));
+                Env.spriteBatch.End();
+            }
             if (font != null)
             {
                 Env.spriteBatch.Begin();
